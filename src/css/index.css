@@ -1,0 +1,124 @@
+.custom-navbar {
+    position: absolute;
+    left: 37%;
+    top: 10%;
+    width: 60%;
+    background-color: white;
+    border-radius: 8px;
+    font-size: 12px;
+}
+
+.me-auto, .d-flex {
+    gap: 10px;
+    align-items: center;
+}
+
+.navbar-dark {
+    background-color: #343a40 !important;
+}
+
+.navbar-white {
+    background-color: white !important;
+    border-radius: 8px;
+    padding: 8px 15px;
+}
+
+.navbar .nav {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-grow: 1;
+}
+
+.navbar .btn-light {
+    background-color: #f8f9fa;
+    color: #212529;
+    border-radius: 5px;
+    padding: 6px 12px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.navbar .btn-light:hover {
+    background-color: #e2e6ea;
+}
+
+.navbar .dropdown-menu {
+    border-radius: 8px;
+    border: 1px solid #ced4da;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1050;
+}
+
+.custom-dropdown-button {
+    border-radius: 5px;
+    background-color: #f8f9fa;
+    color: #212529;
+    font-size: 5px;
+    padding: 6px 12px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar .nav {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+
+.dropdown-menu {
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 8px;
+    background-color: white;
+    z-index: 1050;
+}
+
+
+@media (max-width: 1024px) {
+    .custom-navbar {
+        left: 25%;
+        width: 70%;
+    }
+}
+
+@media (max-width: 768px) {
+    .custom-navbar {
+        left: 15%;
+        width: 80%;
+    }
+}
+
+@media (max-width: 480px) {
+    .custom-navbar {
+        left: 5%;
+        width: 90%;
+    }
+}
+.grid-container {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+.grid-item {
+    border: 1px solid #ced4da;
+    padding: 10px;
+    border-radius: 5px;
+    width: 30%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.styled-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.list-item {
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    font-size: 14px;
+}

@@ -1,0 +1,96 @@
+.modal-header {
+    color: #105494;
+}
+
+.add-folder-modal .modal-body {
+    color: #105494;
+    font-size: 0.75rem;
+    height: 450px;
+    overflow: hidden;
+}
+
+.add-folder-modal input,
+.add-folder-modal textarea,
+.add-folder-modal select {
+    font-size: 0.78rem;
+    resize: none;
+    border: none;
+    border-bottom: 1px solid #105494;
+    border-radius: 0;
+    outline: none;
+    box-shadow: none;
+    background-color: transparent;
+}
+
+.add-folder-modal input:focus,
+.add-folder-modal textarea:focus,
+.add-folder-modal select:focus {
+    border-bottom: 2px solid #105494;
+    outline: none;
+    box-shadow: none;
+}
+
+
+.add-folder-modal ::placeholder {
+    color: #105494;
+    opacity: 1;
+}
+
+.add-folder-modal ::-webkit-input-placeholder {
+    color: #105494;
+}
+
+.add-folder-modal :-ms-input-placeholder {
+    color: #105494;
+}
+
+.add-folder-modal :-moz-placeholder {
+    color: #105494;
+}
+
+.add-folder-modal ::-moz-placeholder {
+    color: #105494;
+}
+
+.add-folder-modal .camera-btn {
+    border: #105494 solid 0.15rem;
+    margin-left: auto;
+    display: inline-block;
+    padding: 5px 10px;
+    font-size: 0.92rem;
+    border-radius: 5px;
+    background: transparent;
+    color: #105494;
+}
+
+.add-folder-modal .camera-btn:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+
+
+.add-folder-modal .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.add-folder-modal .me-3{
+    background-color: #105494;
+    border-radius: 3px;
+    width: 120px;
+    height: 28px;
+    font-size: 0.7rem;
+}
+
+.add-folder-modal .me-4{
+    border: #105494 solid 0.12rem;
+    color: #105494;
+    background-color: white;
+    border-radius: 3px;
+    width: 120px;
+    height: 28px;
+    font-size: 0.7rem;
+}
+

@@ -1,0 +1,100 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+}
+
+.card {
+    flex: 1 1 30%;
+    min-width: 300px;
+    margin: 0.5rem;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 4px 12px;
+}
+
+.card-body {
+    box-shadow: inherit;
+}
+
+.card-title, .modal-title {
+    text-align: center;
+    font-weight: bold;
+}
+
+.card-title {
+    font-size: 16px;
+}
+
+.modal-title {
+    font-size: 14px;
+}
+
+.button1, .button2 {
+    width: 15%;
+    height: 30px;
+    font-size: 12px;
+    font-weight: bold;
+    align-content: center;
+    border: 1.5px solid #105494;
+    transition: none !important;
+}
+
+.button1 {
+    background-color: white;
+    color: #105494;
+}
+
+.button2 {
+    background-color: #105494;
+    color: white;
+}
+
+.button1:hover, .button2:hover {
+    background-color: white !important;
+    border-color: darkblue !important;
+    color: darkblue !important;
+}
+
+/* Modal Styles */
+.modal-dialog {
+    max-width: 90%;
+    margin: 5% auto;
+}
+
+.modal-body {
+    padding: 1rem;
+}
+
+/* Layout Styles */
+.card-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.sidebar, .first-sidebar, .second-sidebar {
+    top: 0;
+    position: fixed;
+}
+
+.sidebar {
+    left: 0;
+}
+
+.first-sidebar {
+    left: 0;
+}
+
+.second-sidebar {
+    left: 180px;
+    background-color: white;
+}
+
+.app-container {
+    display: flex;
+    height: 100vh;
+}
+
+.main-content {
+    margin-left: 360px;
+}

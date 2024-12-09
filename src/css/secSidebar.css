@@ -1,0 +1,134 @@
+.sec-sidebar {
+    position: fixed;
+    top: 0;
+    left: 190px;
+    width: 270px;
+    height: 100%;
+    background-color: #E4F3F8;
+    border-right: 1px solid #105494;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    box-sizing: border-box;
+}
+
+.sec-sidebar-items,
+.sec-sidebar-item-group {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    flex-grow: 1;
+}
+
+.sec-sidebar-item {
+    display: flex;
+    align-items: center;
+    font-size: 13px;
+    font-weight: 400;
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+    margin: 0;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.sec-sidebar-item svg {
+    font-size: 18px;
+    transition: transform 0.3s ease, fill 0.3s ease;
+    fill: black;
+}
+
+.sec-sidebar-item.active {
+    color: #105494;
+    font-weight: bold;
+}
+
+.sec-sidebar-item.active svg {
+    fill: #105494;
+}
+
+.sec-sidebar-item.title-item.non-clickable {
+    font-weight: bold;
+    font-size: 14px;
+    color: #105494;
+    background-color: transparent;
+    cursor: default;
+    padding: 5px;
+}
+
+.sec-sidebar .logo {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 15px;
+    display: block;
+}
+
+.buttonAdd {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 180px;
+    height: 30px;
+    background-color: white;
+    color: #105494;
+    font-size: 12px;
+    font-weight: 500;
+    border: none;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0 2px 6px;
+    align-self: flex-start;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.dropdown {
+    position: absolute;
+    left: 10.5%;
+    width: 180px;
+    background-color: white;
+    border: 1px solid #ddd;
+    box-shadow: rgba(0, 0, 0, 0.35) 0 2px 10px;
+    z-index: 1000;
+}
+
+.dropdown-item {
+    padding: 8px 12px;
+    font-size: 12px;
+    color: #105494;
+    background: none;
+    border: none;
+    text-align: left;
+    width: 100%;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background: white;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #105494;
+}
+
+.buttonContent {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    font-size: 12px;
+}
+
+.icon {
+    font-size: 1rem;
+}
+
+.icon-gap {
+    margin-right: 6px;
+}

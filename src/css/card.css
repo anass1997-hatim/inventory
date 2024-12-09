@@ -1,0 +1,25 @@
+.card, .card-body {
+    border: 1px solid white;
+    border-radius: 10px;
+}
+
+.card-text {
+    font-size: 0.7rem;
+}
+
+.images-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.images {
+    width: 20%;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
