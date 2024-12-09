@@ -7,13 +7,17 @@ import * as XLSX from "xlsx";
 import "../../css/recipient.css";
 
 export default function DataImport() {
-    const [progress, setProgress] = useState(0);
+    const [progress1, setProgress1] = useState(0);
+    const [progress2, setProgress2] = useState(0);
+    const [progress3, setProgress3] = useState(0);
     const [errors, setErrors] = useState([]);
     const [validData, setValidData] = useState([]);
     const [analysisComplete, setAnalysisComplete] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage] = useState(10);
-    const [fileUploaded, setFileUploaded] = useState(false); // Track if a file has been uploaded
+    const [fileUploaded1, setFileUploaded1] = useState(false);
+    const [fileUploaded2, setFileUploaded2] = useState(false);
+    const [fileUploaded3, setFileUploaded3] = useState(false);
 
     const EXPECTED_COLUMNS = [
         "identifiant",
@@ -26,10 +30,9 @@ export default function DataImport() {
         "quantite disponible",
     ];
 
-    // Function to generate and download the example file
     const generateExampleFile = () => {
         const exampleData = [
-            EXPECTED_COLUMNS, // Header row
+            EXPECTED_COLUMNS,
             ["001", "Produit", "123456789", "10", "5", "Catégorie A", "Description du produit", "100"],
             ["002", "Produit", "987654321", "20", "10", "Catégorie B", "Description d'un autre produit", "150"],
         ];
@@ -38,11 +41,10 @@ export default function DataImport() {
         const ws = XLSX.utils.aoa_to_sheet(exampleData);
         XLSX.utils.book_append_sheet(wb, ws, "Exemple");
 
-        // Trigger the download
         XLSX.writeFile(wb, "exemple-fichier.xlsx");
     };
 
-    const validateFile = (file) => {
+    const validateFile = (file, cardId) => {
         const reader = new FileReader();
 
         reader.onload = (event) => {
@@ -53,8 +55,7 @@ export default function DataImport() {
 
             if (!worksheet) {
                 setErrors(["Le fichier téléchargé est vide ou invalide."]);
-                setProgress(100);
-                setAnalysisComplete(true);
+                setProgress100(cardId);
                 return;
             }
 
@@ -62,27 +63,26 @@ export default function DataImport() {
 
             if (data.length === 0 || (data.length === 1 && data[0].every(cell => cell === undefined))) {
                 setErrors(["Le fichier téléchargé est vide."]);
-                setProgress(100);
-                setAnalysisComplete(true);
+                setProgress100(cardId);
                 return;
             }
 
             let fileErrors = [];
-            setProgress(20);
+            setProgress(20, cardId);
 
             const headers = data[0];
             if (!headers || headers.length !== EXPECTED_COLUMNS.length) {
                 fileErrors.push("Nombre incorrect de colonnes dans le fichier.");
             }
 
-            setProgress(40);
+            setProgress(40, cardId);
 
             let emptyRows = data.slice(1).filter(row => row.every(cell => cell === null || cell === undefined || cell === ""));
             if (emptyRows.length > 0) {
                 fileErrors.push("Certaines lignes sont complètement vides.");
             }
 
-            setProgress(60);
+            setProgress(60, cardId);
 
             let duplicateRows = data.slice(1).map((row, index) => JSON.stringify(row))
                 .filter((rowString, index, self) => self.indexOf(rowString) !== index);
@@ -90,7 +90,7 @@ export default function DataImport() {
                 fileErrors.push("Il y a des lignes dupliquées dans le fichier.");
             }
 
-            setProgress(80);
+            setProgress(80, cardId);
 
             let typeErrors = false;
             data.slice(1).forEach((row, index) => {
@@ -105,7 +105,7 @@ export default function DataImport() {
                 fileErrors.push("Certains champs ne sont pas du bon type (par exemple, Quantité disponible doit être un nombre).");
             }
 
-            setProgress(100);
+            setProgress100(cardId);
 
             const maxErrors = 7;
             const truncatedErrors = fileErrors.slice(0, maxErrors);
@@ -119,26 +119,38 @@ export default function DataImport() {
             } else {
                 setValidData(data.slice(1));
                 setAnalysisComplete(true);
-                setFileUploaded(true); // Mark file as uploaded
+                if (cardId === 1) setFileUploaded1(true);
+                if (cardId === 2) setFileUploaded2(true);
+                if (cardId === 3) setFileUploaded3(true);
             }
         };
 
         reader.readAsBinaryString(file);
     };
 
-    const handleFileUpload = (event) => {
+    const handleFileUpload = (event, cardId) => {
         const file = event.target.files[0];
         if (file) {
             setErrors([]);
             setValidData([]);
-            setProgress(10);
+            setProgress(10, cardId);
             setAnalysisComplete(false);
-            validateFile(file);
+            validateFile(file, cardId);
         }
     };
 
     const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber);
+    };
+
+    const setProgress = (progressValue, cardId) => {
+        if (cardId === 1) setProgress1(progressValue);
+        if (cardId === 2) setProgress2(progressValue);
+        if (cardId === 3) setProgress3(progressValue);
+    };
+
+    const setProgress100 = (cardId) => {
+        setProgress(100, cardId);
     };
 
     const indexOfLastItem = currentPage * itemsPerPage;
@@ -159,17 +171,17 @@ export default function DataImport() {
                                 <Card.Text className="card-text">
                                     Importez vos références à partir d'un fichier Excel (.xlsx).
                                 </Card.Text>
-                                {!fileUploaded && ( // Conditionally render file upload button
+                                {!fileUploaded1 && (
                                     <input
                                         className="button"
                                         id="file-upload"
                                         type="file"
                                         accept=".xlsx"
-                                        onChange={handleFileUpload}
+                                        onChange={(e) => handleFileUpload(e, 1)}
                                     />
                                 )}
-                                {progress > 0 && (
-                                    <ProgressBar now={progress} label={`${Math.round(progress)}%`} />
+                                {progress1 > 0 && (
+                                    <ProgressBar now={progress1} label={`${Math.round(progress1)}%`} />
                                 )}
                             </Card.Body>
                         </Card>
@@ -179,14 +191,17 @@ export default function DataImport() {
                                 <Card.Text className="card-text">
                                     Mettez à jour vos produits à partir d'un fichier Excel (.xlsx).
                                 </Card.Text>
-                                {!fileUploaded && ( // Conditionally render file upload button
+                                {!fileUploaded2 && (
                                     <input
                                         className="button"
                                         id="file-upload"
                                         type="file"
                                         accept=".xlsx"
-                                        onChange={handleFileUpload}
+                                        onChange={(e) => handleFileUpload(e, 2)}
                                     />
+                                )}
+                                {progress2 > 0 && (
+                                    <ProgressBar now={progress2} label={`${Math.round(progress2)}%`} />
                                 )}
                             </Card.Body>
                         </Card>
@@ -194,16 +209,19 @@ export default function DataImport() {
                             <Card.Body>
                                 <Card.Title className="card-title">Mise à jour d'equipement.</Card.Title>
                                 <Card.Text className="card-text">
-                                    Mettez à jour vos équipement à partir d'un fichier Excel (.xlsx).
+                                    Mettez à jour vos équipements à partir d'un fichier Excel (.xlsx).
                                 </Card.Text>
-                                {!fileUploaded && ( // Conditionally render file upload button
+                                {!fileUploaded3 && (
                                     <input
                                         className="button"
                                         id="file-upload"
                                         type="file"
                                         accept=".xlsx"
-                                        onChange={handleFileUpload}
+                                        onChange={(e) => handleFileUpload(e, 3)}
                                     />
+                                )}
+                                {progress3 > 0 && (
+                                    <ProgressBar now={progress3} label={`${Math.round(progress3)}%`} />
                                 )}
                             </Card.Body>
                         </Card>
@@ -268,7 +286,7 @@ export default function DataImport() {
                 </div>
             </div>
 
-            {!fileUploaded && (
+            {!fileUploaded1 && (
                 <div className="example-file">
                     <button className="download-btn" onClick={generateExampleFile}>
                         Télécharger un fichier exemple
