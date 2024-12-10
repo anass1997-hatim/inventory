@@ -46,7 +46,6 @@
     box-shadow: none !important;
 }
 
-/* Buttons and Icons */
 .navbar-buttons {
     display: flex;
     gap: 15px;
@@ -69,18 +68,21 @@
 
 .icon-with-dot {
     position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .dot {
     position: absolute;
-    top: -3px;
+    top: 13px;
+    left: 5px;
     width: 10px;
     height: 10px;
     background-color: red;
     border: 2px solid white;
     border-radius: 50%;
 }
-
 
 .navbar {
     padding: 0;
@@ -89,7 +91,6 @@
 .search::-webkit-search-cancel-button {
     display: none;
 }
-
 
 @media (max-width: 768px) {
     .search {

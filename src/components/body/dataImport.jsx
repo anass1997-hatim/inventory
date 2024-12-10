@@ -243,7 +243,7 @@ export default function DataImport() {
                     {analysisComplete && errors.length === 0 && validData.length > 0 && (
                         <div className="valid-data-tab">
                             <h5 className="valid-data-title">Données validées</h5>
-                            <table className="table">
+                            <table className="destinataires-table">
                                 <thead>
                                 <tr>
                                     {EXPECTED_COLUMNS.map((col, index) => (

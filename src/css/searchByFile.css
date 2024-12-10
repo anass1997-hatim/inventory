@@ -1,0 +1,136 @@
+.search-by-file {
+    position: absolute;
+    left: 65%;
+    width: 65%;
+    top: 12%;
+    transform: translateX(-50%);
+    color: #105494;
+    font-size: 0.9rem;
+}
+
+.search-by-file h4 {
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.steps-container h5 {
+    font-size: 0.8rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.steps-container p {
+    font-size: 0.8rem;
+    margin-bottom: 10px;
+}
+
+.search-by-file h6 {
+    color: gray;
+    font-size: 0.75rem;
+}
+
+.step {
+    margin-bottom: 10px;
+}
+
+.file-input {
+    padding: 10px;
+    font-size: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.results-placeholder {
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.download-btn {
+    background-color: #105494;
+    color: white;
+    border: none;
+    padding: 5px 30px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.75rem;
+    display: flex;
+    align-items: center;
+}
+
+.icon-gap {
+    margin-right: 5px;
+}
+
+.search-by-file {
+    max-width: 90%;
+    margin: 0 auto;
+}
+
+.search-by-file table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.search-by-file table th,
+.search-by-file table td {
+    padding: 8px;
+    font-size: 0.8rem;
+    color: #212529;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+.search-by-file table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+.search-by-file table td {
+    background-color: #fff;
+}
+
+.search-by-file table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.search-by-file table tr:hover {
+    background-color: #f1f1f1;
+}
+
+.pagination-container {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pagination-btn {
+    font-size: 0.7rem;
+    background-color: #105494;
+    color: white;
+    border: none;
+    padding: 5px 30px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 0 5px;
+    width: 120px;
+    height: 30px;
+    text-align: center;
+}
+
+.pagination-btn:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+span {
+    margin: 0 10px;
+}
+
+.search-by-file .error-message {
+    margin-top: 15px;
+    color: red;
+    font-weight: bold;
+}

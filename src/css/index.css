@@ -1,8 +1,8 @@
 .custom-navbar {
     position: absolute;
-    left: 32%;
+    left: 31%;
     top: 12%;
-    width: 68%;
+    width: 67%;
     background-color: white;
     border-radius: 8px;
     font-size: 12px;
@@ -39,10 +39,6 @@
     font-weight: 600;
 }
 
-.navbar .btn-light:hover {
-    background-color: #e2e6ea;
-}
-
 .navbar .dropdown-menu {
     border-radius: 8px;
     border: 1px solid #ced4da;
@@ -75,6 +71,18 @@
     z-index: 1050;
 }
 
+.dropdown-item {
+    padding: 8px 20px;
+    font-size: 0.75rem;
+    cursor: pointer;
+}
+
+.dropdown-item:hover {
+    border-bottom: 2px solid #105494;
+    background-color: white;
+    color: #105494;
+    border-radius:0;
+}
 
 @media (max-width: 1024px) {
     .custom-navbar {
@@ -96,18 +104,22 @@
         width: 90%;
     }
 }
+
 .grid-container {
     display: flex;
-    gap: 10px;
+    gap: 5px;
     flex-wrap: wrap;
 }
+
 .grid-item {
     border: 1px solid #ced4da;
     padding: 10px;
     border-radius: 5px;
     width: 30%;
+    height: 250px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
+
 .styled-list {
     list-style-type: none;
     padding: 0;
@@ -122,3 +134,84 @@
     border-radius: 5px;
     font-size: 14px;
 }
+.styled-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.list-item {
+    margin-bottom: 12px;
+    padding: 8px 15px;
+    background-color: #f8f9fa;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.list-item:hover {
+    background-color: #e9ecef;
+}
+
+.list-item-row {
+    margin-bottom: 5px;
+}
+
+.list-item-row span {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.list-item-row strong {
+    color: #105494;
+}
+
+@media (max-width: 768px) {
+    .list-item {
+        padding: 8px 12px;
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 480px) {
+    .list-item {
+        padding: 6px 10px;
+        font-size: 12px;
+    }
+}
+
+.pagination-controls button {
+    margin-top: 5px;
+    background-color: #105494;
+    font-weight: 500;
+    font-size: 12px;
+    padding: 4px 25px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.pagination-controls button:disabled {
+    background-color: #f0f0f0;
+    border-color: #ddd;
+    color: #bbb;
+}
+
+.pagination-controls .pagination-btn {
+    margin-right: 10px;
+}
+
+.pagination-controls .validate-data-btn {
+    background-color: #28a745;
+    color: white;
+    border-color: #28a745;
+    margin-left: auto;
+}
+
+.pagination-controls .validate-data-btn:disabled {
+    background-color: #d6e8d3;
+    border-color: #b0d5b7;
+    color: #97b79d;
+}
+

@@ -117,32 +117,36 @@ export default function Recipient() {
                 {activeTab === "destinataires" && (
                     <div className="tab-pane active">
                         <div className="table-container">
-                            <table className="destinataires-table">
-                                <thead>
-                                <tr>
-                                    <th>Nom</th>
-                                    <th>Prenom</th>
-                                    <th>Status</th>
-                                    <th>Email</th>
-                                    <th>Utilisateur de Inventory</th>
-                                    <th>Telephone</th>
-                                    <th>Creer le</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {destinatairesData.map((dest, index) => (
-                                    <tr key={index}>
-                                        <td>{dest.nom}</td>
-                                        <td>{dest.prenom}</td>
-                                        <td>{dest.status}</td>
-                                        <td>{dest.email}</td>
-                                        <td>{dest.utilisateur}</td>
-                                        <td>{dest.telephone}</td>
-                                        <td>{dest.dateCreer}</td>
+                            {destinatairesData.length === 0 ? (
+                                <p>Aucun destinataire disponible.</p>
+                            ) : (
+                                <table className="destinataires-table">
+                                    <thead>
+                                    <tr>
+                                        <th>Nom</th>
+                                        <th>Prenom</th>
+                                        <th>Status</th>
+                                        <th>Email</th>
+                                        <th>Utilisateur de Inventory</th>
+                                        <th>Telephone</th>
+                                        <th>Creer le</th>
                                     </tr>
-                                ))}
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                    {destinatairesData.map((dest, index) => (
+                                        <tr key={index}>
+                                            <td>{dest.nom}</td>
+                                            <td>{dest.prenom}</td>
+                                            <td>{dest.status}</td>
+                                            <td>{dest.email}</td>
+                                            <td>{dest.utilisateur}</td>
+                                            <td>{dest.telephone}</td>
+                                            <td>{dest.dateCreer}</td>
+                                        </tr>
+                                    ))}
+                                    </tbody>
+                                </table>
+                            )}
                         </div>
                     </div>
                 )}
@@ -150,34 +154,38 @@ export default function Recipient() {
                 {activeTab === "references" && (
                     <div className="tab-pane active">
                         <div className="table-container">
-                            <table className="destinataires-table">
-                                <thead>
-                                <tr>
-                                    <th>Identifiant</th>
-                                    <th>Code-barres</th>
-                                    <th>Quantité</th>
-                                    <th>Assigné à - Prénom</th>
-                                    <th>Assigné à - Nom</th>
-                                    <th>Date d'attribution</th>
-                                    <th>Assigné par - Prénom</th>
-                                    <th>Assigné par - Nom</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {referencesData.map((ref, index) => (
-                                    <tr key={index}>
-                                        <td>{ref.id}</td>
-                                        <td>{ref.codebarres}</td>
-                                        <td>{ref.quantite}</td>
-                                        <td>{ref.assignéPrenom}</td>
-                                        <td>{ref.assignéNom}</td>
-                                        <td>{ref.dateAttribution}</td>
-                                        <td>{ref.assignéParPrenom}</td>
-                                        <td>{ref.assignéParNom}</td>
+                            {referencesData.length === 0 ? (
+                                <p>Aucune référence attribuée.</p>
+                            ) : (
+                                <table className="destinataires-table">
+                                    <thead>
+                                    <tr>
+                                        <th>Identifiant</th>
+                                        <th>Code-barres</th>
+                                        <th>Quantité</th>
+                                        <th>Assigné à - Prénom</th>
+                                        <th>Assigné à - Nom</th>
+                                        <th>Date d'attribution</th>
+                                        <th>Assigné par - Prénom</th>
+                                        <th>Assigné par - Nom</th>
                                     </tr>
-                                ))}
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                    {referencesData.map((ref, index) => (
+                                        <tr key={index}>
+                                            <td>{ref.id}</td>
+                                            <td>{ref.codebarres}</td>
+                                            <td>{ref.quantite}</td>
+                                            <td>{ref.assignéPrenom}</td>
+                                            <td>{ref.assignéNom}</td>
+                                            <td>{ref.dateAttribution}</td>
+                                            <td>{ref.assignéParPrenom}</td>
+                                            <td>{ref.assignéParNom}</td>
+                                        </tr>
+                                    ))}
+                                    </tbody>
+                                </table>
+                            )}
                         </div>
                     </div>
                 )}

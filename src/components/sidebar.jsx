@@ -7,7 +7,6 @@ import {
     HiShoppingCart,
     HiRefresh,
     HiQuestionMarkCircle,
-    HiTranslate,
     HiLogout,
 } from "react-icons/hi";
 import "../css/sidemenu.css";
@@ -18,7 +17,6 @@ export default function SideMenu({ activeItem, setActiveItem }) {
     const { pathname } = location;
 
     const [isLanguageDropdownOpen, setLanguageDropdownOpen] = useState(false);
-    const [selectedLanguage, setSelectedLanguage] = useState("Langues");
 
     const menuGroups = useMemo(() => [
         {
@@ -30,23 +28,10 @@ export default function SideMenu({ activeItem, setActiveItem }) {
                 { icon: HiRefresh, label: "Mise à jour", path: "/updates" },
                 { icon: HiCog, label: "Paramètres", path: "/settings" },
                 { icon: HiQuestionMarkCircle, label: "Faq", path: "/faq" },
-            ],
-        },
-        {
-            items: [
-                {
-                    icon: HiTranslate,
-                    label: selectedLanguage,
-                    isDropdown: true,
-                    dropdownItems: [
-                        { label: "Français", value: "Français" },
-                        { label: "Anglais", value: "Anglais" },
-                    ],
-                },
                 { icon: HiLogout, label: "Deconnexion", path: "/logout" },
             ],
-        },
-    ], [selectedLanguage]);
+        }
+    ], []);
 
     const determineActiveItem = useCallback(
         (path) => {
@@ -74,11 +59,7 @@ export default function SideMenu({ activeItem, setActiveItem }) {
         }
     };
 
-    const handleLanguageSelect = (language) => {
-        setSelectedLanguage(language);
-        setLanguageDropdownOpen(false);
-        setActiveItem((prev) => (prev === "Langues" ? language : prev));
-    };
+
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -121,19 +102,6 @@ export default function SideMenu({ activeItem, setActiveItem }) {
                                     >
                                         {item.label}
                                     </Sidebar.Item>
-                                )}
-                                {item.isDropdown && isLanguageDropdownOpen && (
-                                    <div className="language-dropdown">
-                                        {item.dropdownItems.map((dropdownItem) => (
-                                            <button
-                                                key={dropdownItem.value}
-                                                className="dropdown-item"
-                                                onClick={() => handleLanguageSelect(dropdownItem.value)}
-                                            >
-                                                {dropdownItem.label}
-                                            </button>
-                                        ))}
-                                    </div>
                                 )}
                             </div>
                         ))}

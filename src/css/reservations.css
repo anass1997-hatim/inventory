@@ -1,0 +1,84 @@
+.icon-gap {
+    margin-right: 2px;
+}
+
+.reservations {
+    position: absolute;
+    left: 65%;
+    width: 65%;
+    top: 12%;
+    transform: translateX(-50%);
+    color: #105494;
+}
+
+.reservations h4 {
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.reservations .export-btn {
+    font-size: 12px;
+    background-color: #105494;
+    color: white;
+    padding: 5px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 5px;
+}
+
+.table-container {
+    margin-top: 20px;
+    overflow-x: auto;
+}
+
+.reservations-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    border-radius: 8px;
+}
+
+.reservations-table th, .reservations-table td {
+    padding: 12px 15px;
+    text-align: left;
+    color: #212529;
+    font-size: 0.81rem;
+    border-bottom: 1px solid #ddd;
+}
+
+.reservations-table th {
+    font-size: 0.82rem;
+    background-color: #105494;
+    color: white;
+    font-weight: 600;
+}
+
+@media (max-width: 768px) {
+    .reservations-table th, .reservations-table td {
+        font-size: 10px;
+        padding: 8px 10px;
+    }
+}
+
+.pagination-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.pagination-btn {
+    font-size: 10px;
+    padding: 5px 30px;
+    border-radius: 5px;
+    background-color: #105494;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.pagination-btn:disabled {
+    background-color: #ddd;
+    cursor: not-allowed;
+}

@@ -1,26 +1,25 @@
 import { Sidebar } from "flowbite-react";
     import {
-        HiAdjustments,
-        HiArrowUp,
-        HiBookmark,
-        HiClipboard,
-        HiClipboardList,
-        HiCloud,
-        HiDocumentReport,
-        HiDownload,
-        HiFolder,
-        HiHome,
-        HiIdentification,
-        HiLink,
-        HiMail,
-        HiOutlineClock,
-        HiOutlineKey,
-        HiOutlineTag,
-        HiPrinter,
-        HiSearch,
-        HiTruck,
-        HiUserGroup,
-    } from "react-icons/hi";
+    HiAdjustments,
+    HiArrowUp,
+    HiBookmark,
+    HiClipboard,
+    HiClipboardList,
+    HiCloud,
+    HiDocumentReport,
+    HiDownload,
+    HiFolder,
+    HiHome,
+    HiIdentification,
+    HiLink,
+    HiMail, HiNewspaper,
+    HiOutlineKey,
+    HiOutlineTag,
+    HiPrinter,
+    HiSearch,
+    HiTruck,
+    HiUserGroup,
+} from "react-icons/hi";
     import '../css/secSidebar.css';
     import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
     import { faFileAlt, faFolder, faPlus } from "@fortawesome/free-solid-svg-icons";
@@ -132,7 +131,7 @@ import { Sidebar } from "flowbite-react";
                                 Réservations
                                     </NavLink>
                             </Sidebar.Item>
-                            <Sidebar.Item icon={HiOutlineClock} className="sec-sidebar-item sub-item">
+                            <Sidebar.Item icon={HiNewspaper}  className="sec-sidebar-item sub-item">
                                 <NavLink to="/home/data/activity" className="sec-sidebar-item">
                                 Journal d'activités
                                 </NavLink>
