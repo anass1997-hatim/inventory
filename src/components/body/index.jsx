@@ -20,13 +20,13 @@ export function useExcelImport() {
     const [importedData, setImportedData] = useState([]);
 
     const validateAndCleanData = (jsonData) => {
-        const errors = [];
+        const errors = new Set();
         const cleanedData = [];
         const uniqueEntries = new Set();
 
         if (!jsonData || jsonData.length === 0) {
-            errors.push("Le fichier Excel est vide.");
-            return { cleanedData: [], errors };
+            errors.add("Le fichier Excel est vide.");
+            return { cleanedData: [], errors: Array.from(errors) };
         }
 
         const actualColumns = Object.keys(jsonData[0]);
@@ -35,14 +35,15 @@ export function useExcelImport() {
         );
 
         if (missingColumns.length > 0) {
-            errors.push(`Colonnes manquantes : ${missingColumns.join(', ')}`);
+            errors.add(`Colonnes manquantes : ${missingColumns.join(', ')}`);
+            return { cleanedData: [], errors: Array.from(errors) };
         }
 
-        jsonData.forEach((row, index) => {
+        jsonData.forEach((row) => {
             let errorMessage = '';
 
             if (!row.Identifiant) {
-                errorMessage = `Ligne ${index + 2} : Identifiant manquant`;
+                errorMessage = `Identifiant manquant`;
             }
 
             const rowKey = row.Identifiant;
@@ -53,10 +54,7 @@ export function useExcelImport() {
             }
 
             if (errorMessage) {
-                // Add the error message only if it's not already in the errors array
-                if (!errors.includes(errorMessage)) {
-                    errors.push(errorMessage);
-                }
+                errors.add(errorMessage);
             }
 
             const cleanedRow = {
@@ -72,7 +70,7 @@ export function useExcelImport() {
             cleanedData.push(cleanedRow);
         });
 
-        return { cleanedData, errors };
+        return { cleanedData, errors: Array.from(errors) };
     };
 
     const handleImport = (event) => {
@@ -105,7 +103,6 @@ export function useExcelImport() {
 
                 setImportedData(cleanedData);
                 setImportErrors(errors);
-
             } catch (error) {
                 console.error("Erreur lors de l'import :", error);
                 setImportErrors([
@@ -144,7 +141,7 @@ export default function Index() {
     const [viewDropdownVisible, setViewDropdownVisible] = useState(false);
     const [selectedView, setSelectedView] = useState('Tableau');
     const [currentPage, setCurrentPage] = useState(1);
-    const [itemsPerPage] = useState(6); // Set max items per page to 6
+    const [itemsPerPage] = useState(6);
     const dropdownRef = useRef(null);
     const viewDropdownRef = useRef(null);
     const navigate = useNavigate();
@@ -154,8 +151,12 @@ export default function Index() {
     useEffect(() => {
         if (importedData.length > 0) {
             setData(importedData);
+            setCurrentPage(1);
+        } else if (importErrors.length > 0) {
+            setData([]);
+            setCurrentPage(1);
         }
-    }, [importedData]);
+    }, [importedData, importErrors]);
 
     const handleColumnToggle = (column, event) => {
         event.stopPropagation();

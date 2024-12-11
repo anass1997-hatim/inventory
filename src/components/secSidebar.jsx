@@ -74,24 +74,22 @@ import { Sidebar } from "flowbite-react";
                                 </button>
 
                                 {dropdownVisible && (
-                                    <div className="dropdown">
-                                        <button className="dropdown-item"
-                                                onClick={() => openModal("folder")}>
-                                            <FontAwesomeIcon icon={faFolder} className="icon-gap"/>
+                                    <div ref={dropdownRef} className="dropdown">
+                                        <button className="dropdown-item" onClick={() => openModal("folder")}>
+                                            <FontAwesomeIcon icon={faFolder} className="icon-gap" />
                                             Créer un dossier
                                         </button>
-                                        <button className="dropdown-item"
-                                                onClick={() => openModal("product")}>
-                                            <FontAwesomeIcon icon={faFileAlt} className="icon-gap"/>
+                                        <button className="dropdown-item" onClick={() => openModal("product")}>
+                                            <FontAwesomeIcon icon={faFileAlt} className="icon-gap" />
                                             Créer un produit
                                         </button>
-                                        <button className="dropdown-item" 
-                                                onClick={() => openModal("equipment")}>
-                                            <FontAwesomeIcon icon={faFileAlt} className="icon-gap"/>
+                                        <button className="dropdown-item" onClick={() => openModal("equipment")}>
+                                            <FontAwesomeIcon icon={faFileAlt} className="icon-gap" />
                                             Créer un équipement
                                         </button>
                                     </div>
                                 )}
+
 
 
                             </Sidebar.Item>

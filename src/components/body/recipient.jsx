@@ -9,9 +9,12 @@ import OpenedFormDestinataire from '../body/formDestinataire';
 export default function Recipient() {
     const [activeTab, setActiveTab] = useState("destinataires");
     const [modalOpen, setModalOpen] = useState(false);
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 5;
 
     const handleTabSelect = (tab) => {
         setActiveTab(tab);
+        setCurrentPage(1);
     };
 
     const handleOpenModal = () => {
@@ -23,17 +26,18 @@ export default function Recipient() {
     };
 
     const destinatairesData = [
-        { nom: "Dupont", prenom: "Jean", status: "Actif", email: "jean.dupont@example.com", utilisateur: "Admin", telephone: "+123456789", dateCreer: "2024-12-09" }
+        { nom: "Dupont", prenom: "Jean", status: "Actif", email: "jean.dupont@example.com", utilisateur: "Admin", telephone: "+123456789", Crée: "2024-12-09" },
+        { nom: "Doe", prenom: "Jane", status: "Actif", email: "jane.doe@example.com", utilisateur: "User", telephone: "+987654321", Crée: "2024-12-10" },
     ];
 
     const referencesData = [
-        { id: "123", codebarres: "ABC123", quantite: "5", assignéPrenom: "Jean", assignéNom: "Dupont", dateAttribution: "2024-12-09", assignéParPrenom: "Alice", assignéParNom: "Martin" }
+        { id: "123", codebarres: "ABC123", quantite: "5", assignéPrenom: "Jean", assignéNom: "Dupont", dateAttribution: "2024-12-09", assignéParPrenom: "Alice", assignéParNom: "Martin" },
+        // Add more data for testing
     ];
 
     const handleExportToExcel = () => {
         let data;
         let headers;
-        let titleRow;
 
         if (activeTab === "destinataires") {
             headers = ["Nom", "Prenom", "Status", "Email", "Utilisateur", "Telephone", "Creer le"];
@@ -44,7 +48,7 @@ export default function Recipient() {
                 item.email,
                 item.utilisateur,
                 item.telephone,
-                item.dateCreer,
+                item.Crée,
             ]);
         } else if (activeTab === "references") {
             headers = ["Identifiant", "Code-barres", "Quantité", "Assigné à - Prénom", "Assigné à - Nom", "Date d'attribution", "Assigné par - Prénom", "Assigné par - Nom"];
@@ -60,14 +64,21 @@ export default function Recipient() {
             ]);
         }
 
-        titleRow = [headers];
-        const ws = XLSX.utils.aoa_to_sheet([...titleRow, ...data]);
-
+        const ws = XLSX.utils.aoa_to_sheet([headers, ...data]);
         const wb = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(wb, ws, activeTab === "destinataires" ? "Destinataires" : "Références");
 
         XLSX.writeFile(wb, `${activeTab === "destinataires" ? "Destinataires" : "Références"}.xlsx`);
     };
+
+    const dataToDisplay = activeTab === "destinataires" ? destinatairesData : referencesData;
+
+
+    const totalItems = dataToDisplay.length;
+    const totalPages = Math.ceil(totalItems / itemsPerPage);
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const itemsOnCurrentPage = dataToDisplay.slice(startIndex, endIndex);
 
     return (
         <div className="recipient">
@@ -89,10 +100,7 @@ export default function Recipient() {
                 </button>
             </div>
 
-            <OpenedFormDestinataire
-                isOpen={modalOpen}
-                onClose={handleCloseModal}
-            />
+            <OpenedFormDestinataire isOpen={modalOpen} onClose={handleCloseModal} />
 
             <Nav variant="tabs" className="custom-nav">
                 <Nav.Item>
@@ -114,81 +122,47 @@ export default function Recipient() {
             </Nav>
 
             <div className="tab-content">
-                {activeTab === "destinataires" && (
-                    <div className="tab-pane active">
-                        <div className="table-container">
-                            {destinatairesData.length === 0 ? (
-                                <p>Aucun destinataire disponible.</p>
-                            ) : (
-                                <table className="destinataires-table">
-                                    <thead>
-                                    <tr>
-                                        <th>Nom</th>
-                                        <th>Prenom</th>
-                                        <th>Status</th>
-                                        <th>Email</th>
-                                        <th>Utilisateur de Inventory</th>
-                                        <th>Telephone</th>
-                                        <th>Creer le</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    {destinatairesData.map((dest, index) => (
-                                        <tr key={index}>
-                                            <td>{dest.nom}</td>
-                                            <td>{dest.prenom}</td>
-                                            <td>{dest.status}</td>
-                                            <td>{dest.email}</td>
-                                            <td>{dest.utilisateur}</td>
-                                            <td>{dest.telephone}</td>
-                                            <td>{dest.dateCreer}</td>
-                                        </tr>
-                                    ))}
-                                    </tbody>
-                                </table>
-                            )}
-                        </div>
-                    </div>
+                {itemsOnCurrentPage.length === 0 ? (
+                    <p>{activeTab === "destinataires" ? "Aucun destinataire disponible." : "Aucune référence attribuée."}</p>
+                ) : (
+                    <table className="destinataires-table">
+                        <thead>
+                        <tr>
+                            {Object.keys(itemsOnCurrentPage[0]).map((key) => (
+                                <th key={key}>{key}</th>
+                            ))}
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {itemsOnCurrentPage.map((item, index) => (
+                            <tr key={index}>
+                                {Object.values(item).map((value, subIndex) => (
+                                    <td key={subIndex}>{value}</td>
+                                ))}
+                            </tr>
+                        ))}
+                        </tbody>
+                    </table>
                 )}
-
-                {activeTab === "references" && (
-                    <div className="tab-pane active">
-                        <div className="table-container">
-                            {referencesData.length === 0 ? (
-                                <p>Aucune référence attribuée.</p>
-                            ) : (
-                                <table className="destinataires-table">
-                                    <thead>
-                                    <tr>
-                                        <th>Identifiant</th>
-                                        <th>Code-barres</th>
-                                        <th>Quantité</th>
-                                        <th>Assigné à - Prénom</th>
-                                        <th>Assigné à - Nom</th>
-                                        <th>Date d'attribution</th>
-                                        <th>Assigné par - Prénom</th>
-                                        <th>Assigné par - Nom</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    {referencesData.map((ref, index) => (
-                                        <tr key={index}>
-                                            <td>{ref.id}</td>
-                                            <td>{ref.codebarres}</td>
-                                            <td>{ref.quantite}</td>
-                                            <td>{ref.assignéPrenom}</td>
-                                            <td>{ref.assignéNom}</td>
-                                            <td>{ref.dateAttribution}</td>
-                                            <td>{ref.assignéParPrenom}</td>
-                                            <td>{ref.assignéParNom}</td>
-                                        </tr>
-                                    ))}
-                                    </tbody>
-                                </table>
-                            )}
-                        </div>
-                    </div>
-                )}
+                <div className="pagination-container">
+                    <button
+                        onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                        disabled={currentPage === 1}
+                        className="pagination-btn"
+                    >
+                        Previous
+                    </button>
+                    <span>
+                        Page {currentPage} of {totalPages}
+                    </span>
+                    <button
+                        onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+                        disabled={currentPage === totalPages}
+                        className="pagination-btn"
+                    >
+                        Next
+                    </button>
+                </div>
             </div>
         </div>
     );

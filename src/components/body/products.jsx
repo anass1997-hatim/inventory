@@ -1,88 +1,19 @@
 import '../../css/activity.css';
 import { useState, useMemo } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFileExcel, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+import { faFileExcel, faPenToSquare, faHome } from "@fortawesome/free-solid-svg-icons";
 import * as XLSX from "xlsx";
+import { useNavigate } from "react-router-dom";
+import AddFolder from "../body/formFolder";
 
 const itemsPerPage = 5;
 
 export default function ProductsDisplay() {
     const [currentPage, setCurrentPage] = useState(1);
+    const [isAddFolderOpen, setIsAddFolderOpen] = useState(false);
+    const navigate = useNavigate();
 
-    const inventoryData = useMemo(() => [
-        {
-            identifiantCodeBarres: "BC001",
-            type: "Électronique",
-            quantite: 50,
-            quantiteDisponible: 45,
-            seuilAlerte: 20,
-            categorie: "Accessoires",
-            motsCles: "USB, Adaptateur",
-            emplacement: "Entrepôt A",
-            description: "Adaptateur USB multiport",
-            creeLE: "2024-12-01"
-        },
-        {
-            identifiantCodeBarres: "BC002",
-            type: "Matériel Bureau",
-            quantite: 100,
-            quantiteDisponible: 80,
-            seuilAlerte: 30,
-            categorie: "Papeterie",
-            motsCles: "Stylo, Écriture",
-            emplacement: "Entrepôt B",
-            description: "Stylos à bille bleus",
-            creeLE: "2024-12-02"
-        },
-        {
-            identifiantCodeBarres: "BC003",
-            type: "Mobilier",
-            quantite: 25,
-            quantiteDisponible: 15,
-            seuilAlerte: 10,
-            categorie: "Meubles",
-            motsCles: "Chaise, Bureau",
-            emplacement: "Entrepôt C",
-            description: "Chaise de bureau ergonomique",
-            creeLE: "2024-12-03"
-        },
-        {
-            identifiantCodeBarres: "BC004",
-            type: "Informatique",
-            quantite: 40,
-            quantiteDisponible: 35,
-            seuilAlerte: 15,
-            categorie: "Ordinateurs",
-            motsCles: "Écran, Moniteur",
-            emplacement: "Entrepôt D",
-            description: "Écran LED 24 pouces",
-            creeLE: "2024-12-04"
-        },
-        {
-            identifiantCodeBarres: "BC005",
-            type: "Électroménager",
-            quantite: 30,
-            quantiteDisponible: 25,
-            seuilAlerte: 10,
-            categorie: "Cuisine",
-            motsCles: "Cafetière, Machine",
-            emplacement: "Entrepôt E",
-            description: "Cafetière automatique",
-            creeLE: "2024-12-05"
-        },
-        {
-            identifiantCodeBarres: "BC006",
-            type: "Fournitures",
-            quantite: 200,
-            quantiteDisponible: 150,
-            seuilAlerte: 50,
-            categorie: "Bureau",
-            motsCles: "Papier, Impression",
-            emplacement: "Entrepôt F",
-            description: "Ramettes de papier A4",
-            creeLE: "2024-12-06"
-        }
-    ], []);
+    const inventoryData = useMemo(() => [], []);
 
     const paginatedData = useMemo(() => {
         return inventoryData.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
@@ -90,11 +21,10 @@ export default function ProductsDisplay() {
 
     const totalPages = useMemo(() => Math.ceil(inventoryData.length / itemsPerPage), [inventoryData]);
 
-    // Function to export data to Excel
     const exportToExcel = () => {
         try {
             if (inventoryData.length === 0) {
-                alert("No data to export.");
+                alert("Aucune donnée à exporter.");
                 return;
             }
             const ws = XLSX.utils.json_to_sheet(inventoryData);
@@ -102,8 +32,8 @@ export default function ProductsDisplay() {
             XLSX.utils.book_append_sheet(wb, ws, "Inventory");
             XLSX.writeFile(wb, "inventory.xlsx");
         } catch (error) {
-            console.error("Error exporting to Excel:", error);
-            alert("There was an error exporting the data.");
+            console.error("Erreur lors de l'exportation en Excel :", error);
+            alert("Une erreur s'est produite lors de l'exportation des données.");
         }
     };
 
@@ -112,29 +42,44 @@ export default function ProductsDisplay() {
             <h4>
                 <FontAwesomeIcon icon={faPenToSquare} className="icon-gap" /> Gestion de l'Inventaire
             </h4>
+            <div className="buttons-container">
+                <button className="home-btn" onClick={() => navigate('/home')}>
+                    <FontAwesomeIcon icon={faHome} className="icon-gap" style={{ marginRight: "5px" }} />
+                    Accueil
+                </button>
 
-            <button className="export-btn" onClick={exportToExcel}>
-                <FontAwesomeIcon icon={faFileExcel} className="icon-gap" style={{ marginRight: "5px" }} />
-                Export to Excel
-            </button>
+                <button className="home-btn" onClick={() => setIsAddFolderOpen(true)}>
+                    Ajouter un Produit
+                </button>
+
+                <button className="export-btn" onClick={exportToExcel}>
+                    <FontAwesomeIcon icon={faFileExcel} className="icon-gap" style={{ marginRight: "5px" }} />
+                    Export to Excel
+                </button>
+            </div>
 
             <div className="table-container">
                 {inventoryData.length === 0 ? (
-                    <p>Aucun article en inventaire.</p>
+                    <div className="no-data">
+                        <p>Aucun article en inventaire pour le moment.</p>
+                        <p>
+                            Cliquez sur <strong>Ajouter un Produit</strong> pour commencer à ajouter des articles.
+                        </p>
+                    </div>
                 ) : (
-                    <table className="activity-table">
+                    <table className="product-table">
                         <thead>
                         <tr>
                             <th>Identifiant Code-barres</th>
                             <th>Type</th>
-                            <th>Quantité</th>
-                            <th>Quantité disponible</th>
+                            <th>Quantite</th>
+                            <th>Quantite disponible</th>
                             <th>Seuil d'alerte</th>
-                            <th>Catégorie</th>
-                            <th>Mots-clés</th>
+                            <th>Categorie</th>
+                            <th>Mots-cles</th>
                             <th>Emplacement</th>
                             <th>Description</th>
-                            <th>Créé le</th>
+                            <th>Créer le</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -178,6 +123,12 @@ export default function ProductsDisplay() {
                     </button>
                 </div>
             )}
+
+            <AddFolder
+                open={isAddFolderOpen}
+                onClose={() => setIsAddFolderOpen(false)}
+                btnType="Ajouter un élément"
+            />
         </div>
     );
 }

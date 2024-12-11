@@ -1,14 +1,4 @@
-.modal-header {
-    color: #105494;
-}
-
-.add-folder-modal .modal-body {
-    color: #105494;
-    font-size: 0.75rem;
-    height: 450px;
-    overflow: hidden;
-}
-
+/* Common input, textarea, and select styling */
 .add-folder-modal input,
 .add-folder-modal textarea,
 .add-folder-modal select {
@@ -30,28 +20,34 @@
     box-shadow: none;
 }
 
-
-.add-folder-modal ::placeholder {
+/* Placeholder styling */
+.add-folder-modal ::placeholder,
+.add-folder-modal ::-webkit-input-placeholder,
+.add-folder-modal :-ms-input-placeholder,
+.add-folder-modal :-moz-placeholder,
+.add-folder-modal ::-moz-placeholder {
     color: #105494;
     opacity: 1;
 }
 
-.add-folder-modal ::-webkit-input-placeholder {
+/* Modal header styling */
+.modal-header {
     color: #105494;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.add-folder-modal :-ms-input-placeholder {
+/* Modal body styling */
+.add-folder-modal .modal-body {
     color: #105494;
+    font-size: 0.75rem;
+    max-height: 75vh;
+    overflow-y: auto;
+    padding: 20px;
 }
 
-.add-folder-modal :-moz-placeholder {
-    color: #105494;
-}
-
-.add-folder-modal ::-moz-placeholder {
-    color: #105494;
-}
-
+/* Camera button styling */
 .add-folder-modal .camera-btn {
     border: #105494 solid 0.15rem;
     margin-left: auto;
@@ -68,29 +64,117 @@
     box-shadow: none;
 }
 
-
-
-.add-folder-modal .modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+/* Modal dialog width and alignment */
+.add-folder-modal .modal-dialog {
+    max-width: 80%;
+    margin: 30px auto;
 }
 
-.add-folder-modal .me-3{
-    background-color: #105494;
+.add-folder-modal .modal-dialog-centered {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+/* Button styling for .me-3 and .me-4 */
+.add-folder-modal .modal-header .me-3,
+.add-folder-modal .modal-header .me-4 {
     border-radius: 3px;
     width: 120px;
     height: 28px;
     font-size: 0.7rem;
 }
 
-.add-folder-modal .me-4{
+.add-folder-modal .me-3 {
+    background-color: #105494;
+    border: none;
+    color: white;
+}
+
+.add-folder-modal .me-4 {
     border: #105494 solid 0.12rem;
     color: #105494;
     background-color: white;
-    border-radius: 3px;
-    width: 120px;
-    height: 28px;
-    font-size: 0.7rem;
 }
 
+/* Button common styles */
+.modal-btn {
+    font-size: 0.75rem;
+    padding: 5px 30px;
+    border-radius: 5px;
+    font-weight: 600;
+}
+
+.submit-btn {
+    color: white;
+    background-color: #105494;
+    border: none;
+    margin-left: 10px;
+}
+.submit-btn:hover {
+    color: white;
+    background-color: #105494;
+    border: none;
+}
+
+.cancel-btn {
+    color: #105494;
+    background-color: white;
+    border: 1px solid #105494;
+}
+
+.cancel-btn:hover {
+    color: #105494;
+    background-color: white;
+    border: 1px solid #105494;
+}
+
+/* Attribute button styles */
+.add-attribute {
+    color: #105494;
+    background-color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 6px 12px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.add-attribute:hover {
+    color: white;
+    background-color: #105494;
+}
+
+/* Delete attribute button styles */
+.delete-attribute {
+    color: red;
+    background-color: white;
+    border-radius: 5px;
+    padding: 6px 15px;
+    font-size: 12px;
+    font-weight: 600;
+    border: 1px solid red;
+}
+
+.delete-attribute:hover {
+    color: white;
+    background-color: red;
+}
+
+
+.add-attribute-container {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.add-folder-modal .modal-body {
+    padding: 20px;
+}
+.modal-btn-row {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding-top: 10px;
+}

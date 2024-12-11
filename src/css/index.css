@@ -214,4 +214,45 @@
     border-color: #b0d5b7;
     color: #97b79d;
 }
+.buttons-container {
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+}
+.home-btn {
+    font-size: 12px;
+    color: #105494;
+    background-color: white;
+    padding: 5px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 5px;
+}
 
+
+.table-container {
+    margin-top: 20px;
+    overflow-x: auto;
+}
+
+.product-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 8px;
+}
+
+.product-table th, .product-table td {
+    padding: 5px 20px;
+    text-align: left;
+    color: #212529;
+    font-size: 0.69rem;
+    border-bottom: 1px solid #ddd;
+}
+
+.product-table th {
+    font-size: 0.82rem;
+    background-color: #105494;
+    color: white;
+    font-weight: 600;
+}

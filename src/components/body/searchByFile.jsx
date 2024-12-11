@@ -18,6 +18,7 @@ export default function SearchByFile() {
     const [fileError, setFileError] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
     const [filteredResults, setFilteredResults] = useState([]);
+    const [noDataMessage, setNoDataMessage] = useState(null);
 
     const handleFileUpload = (event) => {
         const file = event.target.files[0];
@@ -32,6 +33,7 @@ export default function SearchByFile() {
             return;
         }
         setFileError(null);
+        setNoDataMessage(null);
 
         const reader = new FileReader();
         reader.onload = (e) => {
@@ -41,15 +43,19 @@ export default function SearchByFile() {
             const sheet = workbook.Sheets[workbook.SheetNames[0]];
             const jsonData = XLSX.utils.sheet_to_json(sheet, { header: 1 });
 
+            if (!jsonData || jsonData.length === 0) {
+                setFileError("Le fichier est vide ou mal formé.");
+                return;
+            }
+
             const header = jsonData[0].map(col => col.toLowerCase());
             if (!header.includes("identifiant") || !header.includes("code-barres")) {
                 setFileError("Le fichier doit contenir les colonnes 'Identifiant' et 'Code-barres'.");
                 return;
             }
 
-            const filteredData = jsonData.slice(1);
+            const filteredData = jsonData.slice(1).filter(row => row.length >= 2);
 
-            // Simulate backend search by matching data with predefinedData
             const results = filteredData.filter(row => {
                 const identifiant = row[0]?.toString().trim();
                 const codebarres = row[1]?.toString().trim();
@@ -58,6 +64,10 @@ export default function SearchByFile() {
                     item.Identifiant === identifiant && item.Codebarres === codebarres
                 );
             });
+
+            if (results.length === 0) {
+                setNoDataMessage("Aucune donnée correspondante trouvée dans le fichier.");
+            }
 
             setFilteredResults(results);
         };
@@ -85,11 +95,11 @@ export default function SearchByFile() {
     };
 
     const paginatedData = useMemo(() => {
-        if (!filteredResults) return [];
-        return filteredResults.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+        const data = filteredResults || [];
+        return data.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
     }, [filteredResults, currentPage]);
 
-    const totalPages = useMemo(() => Math.ceil(filteredResults ? filteredResults.length / itemsPerPage : 1), [filteredResults]);
+    const totalPages = useMemo(() => Math.ceil((filteredResults ? filteredResults.length : 1) / itemsPerPage), [filteredResults]);
 
     return (
         <div className="search-by-file">
@@ -159,7 +169,7 @@ export default function SearchByFile() {
                                 </div>
                             </div>
                         ) : (
-                            <p>Aucun résultat à afficher pour le moment.</p>
+                            <p>{noDataMessage || "Aucun résultat à afficher pour le moment."}</p>
                         )}
                     </div>
                 </div>

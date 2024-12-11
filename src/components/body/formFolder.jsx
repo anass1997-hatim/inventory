@@ -22,6 +22,26 @@ const AddFolder = ({ open, onClose, btnType }) => {
     const [newCategory, setNewCategory] = useState("");
     const [selectedCategory, setSelectedCategory] = useState("");
     const [uploadedImages, setUploadedImages] = useState([]);
+    const [customAttributes, setCustomAttributes] = useState([]);
+
+    const addAttribute = () => {
+        setCustomAttributes([
+            ...customAttributes,
+            { id: Date.now(), name: "", value: "" },
+        ]);
+    };
+
+    const removeAttribute = (id) => {
+        setCustomAttributes(customAttributes.filter((attr) => attr.id !== id));
+    };
+
+    const handleAttributeChange = (id, field, value) => {
+        setCustomAttributes(
+            customAttributes.map((attr) =>
+                attr.id === id ? { ...attr, [field]: value } : attr
+            )
+        );
+    };
 
     const fileInputRef = useRef();
 
@@ -44,7 +64,6 @@ const AddFolder = ({ open, onClose, btnType }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Handle form submission (e.g., API call)
         onClose();
     };
 
@@ -225,6 +244,7 @@ const AddFolder = ({ open, onClose, btnType }) => {
                 </Col>
             </Row>
 
+
             <Row className="mb-2">
                 <Col md={6}>
                     <Form.Group controlId="formLocation">
@@ -286,12 +306,44 @@ const AddFolder = ({ open, onClose, btnType }) => {
                 </Row>
             </div>
 
-            <Row className="mt-3">
+            <div className="mb-3">
+                <h5>Attributs personnalisés</h5>
+                {customAttributes.map((attr) => (
+                    <Row key={attr.id} className="mb-2">
+                        <Col md={5}>
+                            <Form.Control
+                                type="text"
+                                placeholder="Nom de l'attribut"
+                                value={attr.name}
+                                onChange={(e) => handleAttributeChange(attr.id, "name", e.target.value)}
+                            />
+                        </Col>
+                        <Col md={5}>
+                            <Form.Control
+                                type="text"
+                                placeholder="Valeur de l'attribut"
+                                value={attr.value}
+                                onChange={(e) => handleAttributeChange(attr.id, "value", e.target.value)}
+                            />
+                        </Col>
+                        <Col md={2}>
+                            <Button className="delete-attribute" onClick={() => removeAttribute(attr.id)}>
+                                Supprimer
+                            </Button>
+                        </Col>
+                    </Row>
+                ))}
+                <Button className="add-attribute" onClick={addAttribute}>
+                    Ajouter un attribut
+                </Button>
+            </div>
+
+            <Row className="modal-btn-row">
                 <Col>
-                    <Button type="button" onClick={onClose} className="me-4">
+                    <Button type="button" onClick={onClose} className="modal-btn cancel-btn">
                         Annuler
                     </Button>
-                    <Button type="submit" className="me-3">
+                    <Button type="submit" className="modal-btn submit-btn">
                         Enregistrer
                     </Button>
                 </Col>
@@ -304,11 +356,11 @@ const AddFolder = ({ open, onClose, btnType }) => {
             <Modal.Header closeButton>
                 <Modal.Title>
                     <FontAwesomeIcon icon={faInfoCircle} className="me-2" />
-                    {btnType === "folder" ? "Créer un dossier" : "Ajouter un élément"}
+                    {btnType === "folder" ? "Créer un dossier" : btnType === "equipment" ? "Créer un équipement" : "Ajouter un élément"}
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                {btnType === "folder" ? renderFolderForm() : renderProductForm()}
+                {btnType === "folder" ? renderFolderForm() : btnType === "equipment" ? renderProductForm() : renderProductForm()}
             </Modal.Body>
         </Modal>
     );

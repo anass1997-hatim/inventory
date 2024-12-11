@@ -7,7 +7,7 @@ import {
     HiShoppingCart,
     HiRefresh,
     HiQuestionMarkCircle,
-    HiLogout,
+    HiLogout, HiPrinter,
 } from "react-icons/hi";
 import "../css/sidemenu.css";
 import { useEffect, useState, useCallback, useMemo } from "react";
@@ -21,10 +21,11 @@ export default function SideMenu({ activeItem, setActiveItem }) {
     const menuGroups = useMemo(() => [
         {
             items: [
-                { icon: HiHome, label: "Acceuil", path: "/home" , fallbackPath : "/" },
-                { icon: HiDocumentReport, label: "Rapports", path: "/reports" },
+                { icon: HiHome, label: "Acceuil", path: "/home" },
                 { icon: HiCog, label: "Interventions", path: "/interventions" },
+                { icon: HiPrinter, label: "Imprimente", path: "/imprimente" },
                 { icon: HiShoppingCart, label: "Commandes", path: "/orders" },
+                { icon: HiDocumentReport, label: "Rapports", path: "/reports" },
                 { icon: HiRefresh, label: "Mise à jour", path: "/updates" },
                 { icon: HiCog, label: "Paramètres", path: "/settings" },
                 { icon: HiQuestionMarkCircle, label: "Faq", path: "/faq" },
@@ -58,8 +59,6 @@ export default function SideMenu({ activeItem, setActiveItem }) {
             setActiveItem(item.label);
         }
     };
-
-
 
     useEffect(() => {
         const handleClickOutside = (event) => {
